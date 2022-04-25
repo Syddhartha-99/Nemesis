@@ -44,8 +44,7 @@ namespace SG
 
             else
             {
-                return this;
-            }
+                return this;}
             #endregion
         }
     }
