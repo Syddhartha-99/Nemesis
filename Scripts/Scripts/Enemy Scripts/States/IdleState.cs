@@ -9,7 +9,6 @@ namespace SG
 
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
-            #region Handle Target Detection
 
             //look for target
 
@@ -30,9 +29,7 @@ namespace SG
                     }
                 }
             }
-            #endregion
 
-            #region Handle Switch State
             //switch to pursue state
 
             if (enemyManager.currentTarget != null)
@@ -44,9 +41,7 @@ namespace SG
 
             else
             {
-                return this;
-            }
-            #endregion
+                return this;}
         }
     }
 }
