@@ -23,7 +23,6 @@ namespace SG
                 enemyAnimatorManager.PlayTargetAnimation(sleepAnimation, true);
             }
 
-            #region Handle Target Direction
             Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
 
             for (int i = 0; i < colliders.Length; i++)
@@ -44,9 +43,7 @@ namespace SG
                 }
             }
 
-            #endregion
 
-            #region Handle Switch State
             //switch to pursue state
 
             if (enemyManager.currentTarget != null)
@@ -60,7 +57,6 @@ namespace SG
             {
                 return this;
             }
-            #endregion
         }
     }
 }
