@@ -67,7 +67,6 @@ namespace SG
                 {
                     animator.CrossFade("Left Arm Empty", 0.2f);
                 }
-                #endregion
             }
             else
             {
@@ -81,7 +80,6 @@ namespace SG
                 else
                 {
 
-                    #region Handle Right Weapon Idle Animation
                     animator.CrossFade("Both Arms Empty", 0.2f);
 
                     hipSlot.UnloadWeaponAndDestroy();
@@ -94,7 +92,6 @@ namespace SG
                     {
                         animator.CrossFade("Right Arm Empty", 0.2f);
                     }
-                    #endregion
                 }
 
                 rightHandSlot.currentWeapon = weaponItem;
@@ -105,7 +102,6 @@ namespace SG
         }
 
 
-        #region Handle Weapon Damage Collider
 
         private void LoadLeftWeaponDamageCollider()
         {
@@ -134,10 +130,8 @@ namespace SG
             leftHandDamageCollider.DisableDamageCollider();
         }
 
-        #endregion
 
 
-        #region Handle Weapon Stamina Drain
         public void DrainStaminaLightAttack()
         {
             playerStats.DrainStamina(attackingWeapon.baseStamina * Mathf.RoundToInt(attackingWeapon.lightAttackMultiplier));
@@ -147,6 +141,5 @@ namespace SG
         {
             playerStats.DrainStamina(attackingWeapon.baseStamina * Mathf.RoundToInt(attackingWeapon.heavyAttackMultiplier));
         }
-        #endregion
     }
 }
