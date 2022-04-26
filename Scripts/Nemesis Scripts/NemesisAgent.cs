@@ -11,10 +11,12 @@ namespace SG
 
     public class NemesisAgent : Agent
     {
-        [SerializeField]
-        float positiveReward = 1;
+        //[SerializeField]
+        //float positiveReward = 1;
         [SerializeField]
         float negativeReward = -1;
+        [SerializeField]
+        float trainingArea = 4;
 
         [SerializeField]
         private Rigidbody rb;
@@ -34,32 +36,35 @@ namespace SG
             rb.velocity = Vector3.zero;
             transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
 
-            transform.localPosition = new Vector3(Random.Range(9f, -9f), 0, Random.Range(-9f, 9f));
-            targetTransform.localPosition = new Vector3(Random.Range(9f, -9f), 0, Random.Range(-9f, 9f));
+            transform.localPosition = new Vector3(Random.Range(trainingArea, -trainingArea), 0, Random.Range(-trainingArea, trainingArea));
+            targetTransform.localPosition = new Vector3(Random.Range(trainingArea, -trainingArea), 0, Random.Range(-trainingArea, trainingArea));
         }
 
         public override void OnActionReceived(ActionBuffers actions)
         {
             float moveInput = actions.DiscreteActions[0] <= 1 ? actions.DiscreteActions[0] : 0;
             float rotateInput = actions.DiscreteActions[1] <= 1 ? actions.DiscreteActions[1] : -1;
+            bool attackInput = actions.DiscreteActions[2] > 0;
 
 
             nemesisController.moveInput = moveInput;
             nemesisController.rotateInput = rotateInput;
+            nemesisController.attackInput = attackInput;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<Goal>(out Goal goal))
-            {
-                SetReward(positiveReward);
-                EndEpisode();
-            }
             if (other.TryGetComponent<Wall>(out Wall Wall))
             {
                 SetReward(negativeReward);
                 EndEpisode();
             }
+        }
+
+        public void AttackSuccess()
+        {
+            SetReward(10f);
+            Debug.Log("Hit");
         }
     }
 }

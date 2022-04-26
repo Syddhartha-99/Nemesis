@@ -7,17 +7,22 @@ namespace SG
 {
     public class NemesisController : MonoBehaviour
     {
+
+
         public float moveSpeed = 1f;
         public float rotateSpeed = 300f;
 
+        public float currentRecoveryTime = 0;
+
         public float moveInput;
         public float rotateInput;
+        public bool attackInput;
         public bool checkGrounded;
         public bool checkInteracting;
 
-        private Rigidbody rb;
-        private CapsuleCollider col;
-        private Animator anim;
+        public Rigidbody rb;
+        public CapsuleCollider col;
+        public Animator anim;
 
         private void Awake()
         {
@@ -29,6 +34,8 @@ namespace SG
         private void Update()
         {
             checkInteracting = anim.GetBool("checkInteracting");
+            anim.SetFloat("Speed", rb.velocity.magnitude);
+            HandleAttack();
         }
 
         private void FixedUpdate()
@@ -86,5 +93,16 @@ namespace SG
             }
         }
 
+        private void HandleAttack()
+        {
+            if (checkInteracting == false)
+            {
+                if (attackInput)
+                {
+                    anim.Play("OH_Light_Attack_1");
+                    anim.SetBool("checkInteracting", true);
+                }
+            }
+        }
     }
 }
